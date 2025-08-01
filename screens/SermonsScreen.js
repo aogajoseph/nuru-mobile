@@ -2,6 +2,7 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import SermonsCard from '../components/SermonsCard';
+import ScreenLayout from '../components/ScreenLayout';
 
 const sermons = [
   {
@@ -48,29 +49,32 @@ const sermons = [
   },
 ];
 
-const SermonsScreen = () => {
+export default function SermonsScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.heading}>Sermons</Text>
-      <Text style={styles.subtitle}>
-        Our messages are crafted to encourage, challenge and deepen your walk with Christ.
-      </Text>
+    <ScreenLayout>
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        <Text style={styles.heading}>Sermons</Text>
+        <Text style={styles.subtitle}>
+          Our messages are crafted to encourage, challenge and deepen your walk with Christ.
+        </Text>
 
-      {sermons.length === 0 ? (
-        <Text style={styles.empty}>Nothing at the moment</Text>
-      ) : (
-        sermons.map((sermon, idx) => (
-          <SermonsCard key={idx} {...sermon} idx={idx} />
-        ))
-      )}
-    </ScrollView>
+        {sermons.length === 0 ? (
+          <Text style={styles.empty}>Nothing at the moment</Text>
+        ) : (
+          sermons.map((sermon, idx) => (
+            <SermonsCard key={idx} {...sermon} idx={idx} />
+          ))
+        )}
+      </ScrollView>
+    </ScreenLayout>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  container: {
+  scrollContainer: {
     paddingTop: 20,
     paddingHorizontal: 16,
+    paddingBottom: 32,
   },
   heading: {
     fontSize: 24,
@@ -87,7 +91,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
     textAlign: 'center',
+    marginTop: 40,
   },
 });
-
-export default SermonsScreen;

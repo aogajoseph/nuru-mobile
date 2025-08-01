@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import {
-  View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, LayoutAnimation, Platform, UIManager
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
+import ScreenLayout from '../components/ScreenLayout';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-// Sample Images (replace local with URLs or cloud-hosted if necessary)
 const frontlineMinistries = [
   {
     title: "Echo Africa",
@@ -34,7 +42,7 @@ const frontlineMinistries = [
   {
     title: "Tumaini Clinics",
     subheader: "Health & Wellness",
-    image: "https://your-cdn.com/tumainiClinics.png", // Replace with actual image if hosted
+    image: "https://your-cdn.com/tumainiClinics.png",
     description: "Affordable, quality medical services in Kibra and Korogocho.",
     details: "With over 3,500 patients monthly, Tumaini Clinics offer maternity and general care at a fraction of market cost, making healthcare accessible to the underserved.",
   },
@@ -72,14 +80,14 @@ const otherMinistries = [
   {
     title: "Jabari",
     subheader: "Men's Ministry",
-    image: "https://your-cdn.com/jabari.png", // Replace with actual cloud URL
+    image: "https://your-cdn.com/jabari.png",
     description: "Empowering men to be bold disciples of Jesus.",
     details: "Jabari connects men to God and each other to live out their faith at home, church, and society with strength and purpose.",
   },
   {
     title: "Binti",
     subheader: "Women's Ministry",
-    image: "https://your-cdn.com/binti.png", // Replace with actual cloud URL
+    image: "https://your-cdn.com/binti.png",
     description: "Encouraging women to embrace identity and faith.",
     details: "Binti fosters prayer, community, and strength among women from all walks of life, equipping them to respond to life with grace and spiritual depth.",
   },
@@ -120,37 +128,39 @@ const MinistryCard = ({ title, subheader, image, description, details }) => {
 
 export default function MinistriesScreen() {
   return (
-    <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.pageTitle}>Ministries</Text>
-        <Text style={styles.pageSubtitle}>
-          Explore our various ministries and find your place to serve, grow and connect.
-        </Text>
-      </View>
+    <ScreenLayout>
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.pageTitle}>Ministries</Text>
+          <Text style={styles.pageSubtitle}>
+            Explore our various ministries and find your place to serve, grow and connect.
+          </Text>
+        </View>
 
-      {/* Frontline Ministries */}
-      <Text style={styles.sectionHeading}>Frontline Ministries</Text>
-      <View style={styles.cardsWrapper}>
-        {frontlineMinistries.map((ministry, idx) => (
-          <MinistryCard key={idx} {...ministry} />
-        ))}
-      </View>
+        {/* Frontline Ministries */}
+        <Text style={styles.sectionHeading}>Frontline Ministries</Text>
+        <View style={styles.cardsWrapper}>
+          {frontlineMinistries.map((ministry, idx) => (
+            <MinistryCard key={idx} {...ministry} />
+          ))}
+        </View>
 
-      {/* Other Ministries */}
-      <Text style={styles.sectionHeading}>Other Ministries</Text>
-      <View style={styles.cardsWrapper}>
-        {otherMinistries.map((ministry, idx) => (
-          <MinistryCard key={idx} {...ministry} />
-        ))}
-      </View>
-    </ScrollView>
+        {/* Other Ministries */}
+        <Text style={styles.sectionHeading}>Other Ministries</Text>
+        <View style={styles.cardsWrapper}>
+          {otherMinistries.map((ministry, idx) => (
+            <MinistryCard key={idx} {...ministry} />
+          ))}
+        </View>
+      </ScrollView>
+    </ScreenLayout>
   );
 }
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
+  scrollContainer: {
+    paddingBottom: 32,
   },
   header: {
     paddingHorizontal: 16,
@@ -179,7 +189,6 @@ const styles = StyleSheet.create({
   },
   cardsWrapper: {
     paddingHorizontal: 16,
-    paddingBottom: 24,
   },
   card: {
     backgroundColor: '#fff',

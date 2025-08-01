@@ -58,7 +58,9 @@ const ChatBox = () => {
       <ScrollView
         ref={scrollViewRef}
         style={styles.messagesContainer}
+        contentContainerStyle={{ paddingBottom: 16 }}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {messages.map((msg, idx) => (
           <View
@@ -108,40 +110,25 @@ const ChatBox = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "transparent",
-    borderRadius: 12,
-    paddingHorizontal: 0,
-    marginBottom: 0,
-    paddingBottom: 0,
-  },
+  container: { flex: 1 },
   messagesContainer: {
     flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 4,
+    paddingHorizontal: 10,
+    paddingTop: 12,
   },
   messageContainer: {
     marginVertical: 4,
     maxWidth: "80%",
   },
-  userMessage: {
-    alignSelf: "flex-end",
-  },
-  botMessage: {
-    alignSelf: "flex-start",
-  },
+  userMessage: { alignSelf: "flex-end" },
+  botMessage: { alignSelf: "flex-start" },
   messageBubble: {
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
+    paddingVertical: 10,
+    borderRadius: 14,
   },
-  userBubble: {
-    backgroundColor: "#e3f2fd",
-  },
-  botBubble: {
-    backgroundColor: "#f5f5f5",
-  },
+  userBubble: { backgroundColor: "#e3f2fd" },
+  botBubble: { backgroundColor: "#f5f5f5" },
   messageText: {
     fontSize: 15,
     color: "#333",
@@ -154,20 +141,21 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: "auto",
-    paddingBottom: 0,
-    paddingTop: 4,
-    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: "#f0f0f0",
+    borderTopWidth: 1,
+    borderColor: "#e0e0e0",
   },
   textInput: {
     flex: 1,
+    backgroundColor: "#fff",
+    borderColor: "#ddd",
     borderWidth: 1,
-    borderColor: "#e0e0e0",
-    borderRadius: 25,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     fontSize: 15,
-    backgroundColor: "#f9f9f9",
     marginRight: 8,
   },
   sendButton: {
@@ -178,9 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  sendButtonDisabled: {
-    backgroundColor: "#ccc",
-  },
+  sendButtonDisabled: { backgroundColor: "#ccc" },
 });
 
-export default ChatBox; 
+export default ChatBox;

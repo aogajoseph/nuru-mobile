@@ -1,6 +1,13 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView, Linking } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Linking,
+} from 'react-native';
 import NoticesCard from '../components/NoticesCard';
+import ScreenLayout from '../components/ScreenLayout';
 
 const notices = [
   {
@@ -38,12 +45,11 @@ const notices = [
 
 export default function NoticesScreen() {
   const handleZoomLink = () => {
-    // You can replace this with the actual Zoom link
     Linking.openURL('https://zoom.us');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScreenLayout>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
@@ -60,9 +66,9 @@ export default function NoticesScreen() {
           ) : (
             <View style={styles.cardsGrid}>
               {notices.map((notice, idx) => (
-                <NoticesCard 
-                  key={idx} 
-                  {...notice} 
+                <NoticesCard
+                  key={idx}
+                  {...notice}
                   idx={idx}
                   onPress={notice.buttonLabel === "Zoom Link" ? handleZoomLink : undefined}
                 />
@@ -71,15 +77,11 @@ export default function NoticesScreen() {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
   scrollView: {
     flex: 1,
   },
@@ -120,4 +122,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
-}); 
+});

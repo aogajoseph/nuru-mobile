@@ -8,12 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { FontAwesome, MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
-
-const { } = Dimensions.get('window');
+import ScreenLayout from '../components/ScreenLayout';
 
 const ConnectScreen = () => {
   const [feedback, setFeedback] = useState('');
@@ -21,121 +20,131 @@ const ConnectScreen = () => {
   const [amount, setAmount] = useState('');
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Page Title and Subtitle */}
-      <View style={styles.pageHeader}>
-        <Text style={styles.pageTitle}>Connect</Text>
-        <Text style={styles.pageSubtitle}>
-          Get involved by sharing feedback, giving or connecting with us online or in person.
-        </Text>
-      </View>
+    <ScreenLayout>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        {/* Page Title and Subtitle */}
+        <View style={styles.pageHeader}>
+          <Text style={styles.pageTitle}>Connect</Text>
+          <Text style={styles.pageSubtitle}>
+            Get involved by sharing feedback, giving or connecting with us online or in person.
+          </Text>
+        </View>
 
-      {/* Feedback Form */}
-      <View style={[styles.card, styles.feedbackCard]}>
-        <Text style={styles.heading}>Feedback</Text>
-        <Text style={styles.subtext}>
-          Your feedback is anonymous. If you'd like a response, include your phone number or email.
-        </Text>
-        <TextInput
-          multiline
-          numberOfLines={4}
-          placeholder="Type here..."
-          value={feedback}
-          onChangeText={setFeedback}
-          style={styles.inputArea}
-        />
-        <Button title="Send" onPress={() => {}} color="#7F00FF" />
-      </View>
+        {/* Feedback Form */}
+        <View style={[styles.card, styles.feedbackCard]}>
+          <Text style={styles.heading}>Feedback</Text>
+          <Text style={styles.subtext}>
+            Your feedback is anonymous. If you'd like a response, include your phone number or email.
+          </Text>
+          <TextInput
+            multiline
+            numberOfLines={4}
+            placeholder="Type here..."
+            value={feedback}
+            onChangeText={setFeedback}
+            style={styles.inputArea}
+          />
+          <Button title="Send" onPress={() => {}} color="#7F00FF" />
+        </View>
 
-      {/* Google Map Embed */}
-      <View style={styles.mapCard}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: -1.3024,
-            longitude: 36.7789,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
-        >
-          <Marker coordinate={{ latitude: -1.3024, longitude: 36.7789 }} />
-        </MapView>
-      </View>
+        {/* Giving Section */}
+        <View style={[styles.card, styles.givingCard]}>
+          <Text style={styles.subheading}>Giving</Text>
+          <Text style={styles.label}>Method</Text>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity
+              style={[styles.methodButton, donationMethod === 'mpesa' && styles.activeMethod]}
+              onPress={() => setDonationMethod('mpesa')}
+            >
+              <MaterialIcons name="phone-android" size={16} />
+              <Text style={styles.methodText}>Mpesa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.methodButton, donationMethod === 'credit' && styles.activeMethod]}
+              onPress={() => setDonationMethod('credit')}
+            >
+              <Entypo name="credit-card" size={16} />
+              <Text style={styles.methodText}>Credit</Text>
+            </TouchableOpacity>
+          </View>
 
-      {/* Social Icons */}
-      <Text style={styles.sectionTitle}>Connect</Text>
-      <View style={styles.socialIcons}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://web.facebook.com/NairobiChapel/')}> 
-          <FontAwesome name="facebook" size={26} color="#4267B2" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://wa.me/254701777888')}>
-          <FontAwesome name="whatsapp" size={26} color="#25D366" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/channel/UCHFRjuT0oBt6l1vsVnldBJw')}>
-          <FontAwesome name="youtube-play" size={26} color="red" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('tel:+254725650737')}>
-          <Feather name="phone" size={26} color="#7F00FF" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL('mailto:info@nairobichapel.org')}>
-          <MaterialIcons name="email" size={26} color="#7F00FF" />
-        </TouchableOpacity>
-      </View>
+          {donationMethod === 'mpesa' && (
+            <TextInput placeholder="Phone Number" style={styles.input} keyboardType="phone-pad" />
+          )}
 
-      {/* Giving */}
-      <View style={[styles.card, styles.givingCard]}>
-        <Text style={styles.subheading}>Giving</Text>
+          {donationMethod === 'credit' && (
+            <>
+              <TextInput placeholder="Card Number" style={styles.input} keyboardType="numeric" />
+              <View style={styles.rowInput}>
+                <TextInput placeholder="Expiry" style={[styles.input, { flex: 1 }]} />
+                <TextInput placeholder="CVV" style={[styles.input, { flex: 1 }]} />
+              </View>
+              <TextInput placeholder="Name on Card" style={styles.input} />
+            </>
+          )}
 
-        <Text style={styles.label}>Method</Text>
-        <View style={styles.buttonRow}>
-          <TouchableOpacity
-            style={[styles.methodButton, donationMethod === 'mpesa' && styles.activeMethod]}
-            onPress={() => setDonationMethod('mpesa')}
-          >
-            <MaterialIcons name="phone-android" size={16} />
-            <Text style={styles.methodText}>Mpesa</Text>
+          <TextInput
+            placeholder="Amount (KES)"
+            style={styles.input}
+            keyboardType="numeric"
+            value={amount}
+            onChangeText={setAmount}
+          />
+          <Button title="Give" onPress={() => {}} color="#7F00FF" />
+        </View>
+
+        {/* Social Icons */}
+        <Text style={styles.sectionTitle}>Stay Connected</Text>
+        <View style={styles.socialIcons}>
+          <TouchableOpacity onPress={() => Linking.openURL('https://web.facebook.com/NairobiChapel/')}>
+            <FontAwesome name="facebook" size={26} color="#4267B2" />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.methodButton, donationMethod === 'credit' && styles.activeMethod]}
-            onPress={() => setDonationMethod('credit')}
-          >
-            <Entypo name="credit-card" size={16} />
-            <Text style={styles.methodText}>Credit</Text>
+          <TouchableOpacity onPress={() => Linking.openURL('https://wa.me/254701777888')}>
+            <FontAwesome name="whatsapp" size={26} color="#25D366" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/channel/UCHFRjuT0oBt6l1vsVnldBJw')}>
+            <FontAwesome name="youtube-play" size={26} color="red" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('tel:+254725650737')}>
+            <Feather name="phone" size={26} color="#7F00FF" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('mailto:info@nairobichapel.org')}>
+            <MaterialIcons name="email" size={26} color="#7F00FF" />
           </TouchableOpacity>
         </View>
 
-        {donationMethod === 'mpesa' && (
-          <TextInput placeholder="Phone Number" style={styles.input} keyboardType="phone-pad" />
-        )}
+        {/* Map */}
+        <View style={styles.mapCard}>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: -1.3024,
+              longitude: 36.7789,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+          >
+            <Marker coordinate={{ latitude: -1.3024, longitude: 36.7789 }} />
+          </MapView>
+        </View>
 
-        {donationMethod === 'credit' && (
-          <>
-            <TextInput placeholder="Card Number" style={styles.input} keyboardType="numeric" />
-            <View style={styles.rowInput}>
-              <TextInput placeholder="Expiry" style={[styles.input, { flex: 1 }]} />
-              <TextInput placeholder="CVV" style={[styles.input, { flex: 1 }]} />
-            </View>
-            <TextInput placeholder="Name on Card" style={styles.input} />
-          </>
-        )}
+        {/* Locations */}
+        <View style={styles.addressCard}>
+          <Text style={styles.subheading}>Church Location</Text>
+          <Text style={styles.addressText}>Jamuhuri Road off Ngong Road</Text>
 
-        <TextInput placeholder="Amount (KES)" style={styles.input} keyboardType="numeric" value={amount} onChangeText={setAmount} />
-        <Button title="Give" onPress={() => {}} color="#7F00FF" />
-      </View>
+          <Text style={styles.subheading}>Office Location</Text>
+          <Text style={styles.addressText}>
+            Greenhouse Building, Adams Arcade, Ngong Road. West Wing, First Floor (Suite 1)
+          </Text>
+        </View>
 
-      {/* Location Text */}
-      <View style={styles.addressCard}>
-        <Text style={styles.subheading}>Church Location</Text>
-        <Text style={styles.addressText}>Jamuhuri Road off Ngong Road</Text>
-
-        <Text style={styles.subheading}>Office Location</Text>
-        <Text style={styles.addressText}>
-          Greenhouse Building, Adams Arcade, Ngong Road. West Wing, First Floor (Suite1)
-        </Text>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </ScreenLayout>
   );
 };
+
+export default ConnectScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
@@ -155,7 +164,7 @@ const styles = StyleSheet.create({
     color: '#666',
     fontWeight: '400',
     lineHeight: 20,
-  },  
+  },
   card: {
     margin: 16,
     borderRadius: 10,
@@ -210,6 +219,7 @@ const styles = StyleSheet.create({
   },
   inputArea: {
     backgroundColor: '#fff',
+    textAlignVertical: 'top',
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 8,
@@ -221,7 +231,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: 16,
-    marginBottom: 10,
+    textAlign: 'center',
+    marginBottom: 14,
     color: '#333',
   },
   socialIcons: {
@@ -271,5 +282,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-export default ConnectScreen;
