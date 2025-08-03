@@ -21,28 +21,28 @@ const frontlineMinistries = [
   {
     title: "Echo Africa",
     subheader: "Mission Outreach",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    image: { uri: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" },
     description: "Transforming lives across Africa through missions, education, and empowerment.",
     details: "Echo Africa partners with local churches and organizations to bring hope and resources to underserved communities.",
   },
   {
     title: "One Lamb",
     subheader: "Ending child exploitation",
-    image: "https://onelamb.org/wp-content/uploads/2016/08/Main-Cover-Photo.jpg",
+    image: { uri: "https://onelamb.org/wp-content/uploads/2016/08/Main-Cover-Photo.jpg" },
     description: "Works with communities to end child sexual exploitation through the gospel.",
     details: "One Lamb began in 2011 after a documentary on human trafficking. It addresses child exploitation in Kenya through rescue and gospel-centered restoration.",
   },
   {
     title: "Safe Families",
     subheader: "Foster Care",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+    image: require('../assets/images/safe-families.png'),
     description: "Extends love and support to vulnerable families and children.",
     details: "Safe Families places children in temporary homes while helping parents overcome crises such as illness or job loss. It revives the African communal care spirit.",
   },
   {
     title: "Tumaini Clinics",
     subheader: "Health & Wellness",
-    image: "https://your-cdn.com/tumainiClinics.png",
+    image: require('../assets/images/tumaini-clinics.png'),
     description: "Affordable, quality medical services in Kibra and Korogocho.",
     details: "With over 3,500 patients monthly, Tumaini Clinics offer maternity and general care at a fraction of market cost, making healthcare accessible to the underserved.",
   },
@@ -52,49 +52,49 @@ const otherMinistries = [
   {
     title: "Quest",
     subheader: "Ages 3–12",
-    image: "https://nairobichapel.net/wp-content/uploads/2015/07/NY1A1171-1024x683.jpg",
+    image: { uri: "https://nairobichapel.net/wp-content/uploads/2015/07/NY1A1171-1024x683.jpg" },
     description: "Helping children know God and grow in His Word.",
     details: "QUEST is a fun and Christ-centered environment where children build faith foundations and are empowered to love others through biblical adventure.",
   },
   {
     title: "Teens Church",
     subheader: "Ages 13–19",
-    image: "https://nairobichapel.net/wp-content/uploads/2015/07/youth-church.png",
+    image: { uri: "https://nairobichapel.net/wp-content/uploads/2015/07/youth-church.png" },
     description: "Nurturing and empowering young adults.",
     details: "Also known as XP, this dynamic youth program equips teens for spiritual, emotional, and leadership growth while encouraging real community.",
   },
   {
     title: "Plug-In",
     subheader: "Finding Purpose",
-    image: "https://nairobichapel.net/wp-content/uploads/2015/07/plug-in.png",
+    image: { uri: "https://nairobichapel.net/wp-content/uploads/2015/07/plug-in.png" },
     description: "A 10-week discipleship journey for discovering God's purpose.",
     details: "Plug-In is an immersive experience into God’s Word, correcting false views of Him and creating lasting friendships rooted in Christ-centered community.",
   },
   {
     title: "E-Groups",
     subheader: "Fishers of Men",
-    image: "https://nairobichapel.net/wp-content/uploads/2018/03/egroups-1.jpg",
+    image: { uri: "https://nairobichapel.net/wp-content/uploads/2018/03/egroups-1.jpg" },
     description: "Building authentic relationships and growing spiritually.",
     details: "eGroups meet weekly to foster Accountability, Belonging, Care, Discipleship, and Evangelism. This is where the true church life happens.",
   },
   {
     title: "Jabari",
     subheader: "Men's Ministry",
-    image: "https://your-cdn.com/jabari.png",
+    image: require('../assets/images/jabari.png'),
     description: "Empowering men to be bold disciples of Jesus.",
     details: "Jabari connects men to God and each other to live out their faith at home, church, and society with strength and purpose.",
   },
   {
     title: "Binti",
     subheader: "Women's Ministry",
-    image: "https://your-cdn.com/binti.png",
+    image: require('../assets/images/binti.png'),
     description: "Encouraging women to embrace identity and faith.",
     details: "Binti fosters prayer, community, and strength among women from all walks of life, equipping them to respond to life with grace and spiritual depth.",
   },
   {
     title: "T-Track",
     subheader: "Discipleship",
-    image: "https://nairobichapel.net/wp-content/uploads/2018/02/NC-T-Track-edited.png",
+    image: { uri: "https://nairobichapel.net/wp-content/uploads/2018/02/NC-T-Track-edited.png" },
     description: "Guiding believers through spiritual maturity.",
     details: "T-Track includes REACH, CONNECT, and GROW — stages that help people engage with faith, grow spiritually, and make disciples.",
   },
@@ -110,7 +110,10 @@ const MinistryCard = ({ title, subheader, image, description, details }) => {
 
   return (
     <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image
+        source={typeof image === 'string' ? { uri: image } : image}
+        style={styles.image}
+      />
       <View style={styles.textWrapper}>
         <Text style={styles.cardTitle}>{title}</Text>
         <Text style={styles.cardSubheader}>{subheader}</Text>

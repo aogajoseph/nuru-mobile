@@ -8,9 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Dimensions,
+  Image,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
 import { FontAwesome, MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
 import ScreenLayout from '../components/ScreenLayout';
 
@@ -22,7 +21,6 @@ const ConnectScreen = () => {
   return (
     <ScreenLayout>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {/* Page Title and Subtitle */}
         <View style={styles.pageHeader}>
           <Text style={styles.pageTitle}>Connect</Text>
           <Text style={styles.pageSubtitle}>
@@ -30,7 +28,6 @@ const ConnectScreen = () => {
           </Text>
         </View>
 
-        {/* Feedback Form */}
         <View style={[styles.card, styles.feedbackCard]}>
           <Text style={styles.heading}>Feedback</Text>
           <Text style={styles.subtext}>
@@ -40,6 +37,7 @@ const ConnectScreen = () => {
             multiline
             numberOfLines={4}
             placeholder="Type here..."
+            placeholderTextColor="#888"
             value={feedback}
             onChangeText={setFeedback}
             style={styles.inputArea}
@@ -47,7 +45,6 @@ const ConnectScreen = () => {
           <Button title="Send" onPress={() => {}} color="#7F00FF" />
         </View>
 
-        {/* Giving Section */}
         <View style={[styles.card, styles.givingCard]}>
           <Text style={styles.subheading}>Giving</Text>
           <Text style={styles.label}>Method</Text>
@@ -69,22 +66,45 @@ const ConnectScreen = () => {
           </View>
 
           {donationMethod === 'mpesa' && (
-            <TextInput placeholder="Phone Number" style={styles.input} keyboardType="phone-pad" />
+            <TextInput
+              placeholder="Phone Number"
+              placeholderTextColor="#888"
+              style={styles.input}
+              keyboardType="phone-pad"
+            />
           )}
 
           {donationMethod === 'credit' && (
             <>
-              <TextInput placeholder="Card Number" style={styles.input} keyboardType="numeric" />
+              <TextInput
+                placeholder="Card Number"
+                placeholderTextColor="#888"
+                style={styles.input}
+                keyboardType="numeric"
+              />
               <View style={styles.rowInput}>
-                <TextInput placeholder="Expiry" style={[styles.input, { flex: 1 }]} />
-                <TextInput placeholder="CVV" style={[styles.input, { flex: 1 }]} />
+                <TextInput
+                  placeholder="Expiry"
+                  placeholderTextColor="#888"
+                  style={[styles.input, { flex: 1 }]}
+                />
+                <TextInput
+                  placeholder="CVV"
+                  placeholderTextColor="#888"
+                  style={[styles.input, { flex: 1 }]}
+                />
               </View>
-              <TextInput placeholder="Name on Card" style={styles.input} />
+              <TextInput
+                placeholder="Name on Card"
+                placeholderTextColor="#888"
+                style={styles.input}
+              />
             </>
           )}
 
           <TextInput
             placeholder="Amount (KES)"
+            placeholderTextColor="#888"
             style={styles.input}
             keyboardType="numeric"
             value={amount}
@@ -93,10 +113,9 @@ const ConnectScreen = () => {
           <Button title="Give" onPress={() => {}} color="#7F00FF" />
         </View>
 
-        {/* Social Icons */}
         <Text style={styles.sectionTitle}>Stay Connected</Text>
         <View style={styles.socialIcons}>
-          <TouchableOpacity onPress={() => Linking.openURL('https://web.facebook.com/NairobiChapel/')}>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/NairobiChapel/')}>
             <FontAwesome name="facebook" size={26} color="#4267B2" />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => Linking.openURL('https://wa.me/254701777888')}>
@@ -113,22 +132,16 @@ const ConnectScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Map */}
         <View style={styles.mapCard}>
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: -1.3024,
-              longitude: 36.7789,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
+          <Image source={require('../assets/images/location.png')} style={styles.map} resizeMode="cover" />
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://maps.app.goo.gl/sKFTCNgBzYaoujqN6/')}
+            style={styles.openMapBtn}
           >
-            <Marker coordinate={{ latitude: -1.3024, longitude: 36.7789 }} />
-          </MapView>
+            <Text style={styles.openMapText}>Open in Google Maps</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Locations */}
         <View style={styles.addressCard}>
           <Text style={styles.subheading}>Church Location</Text>
           <Text style={styles.addressText}>Jamuhuri Road off Ngong Road</Text>
@@ -138,7 +151,6 @@ const ConnectScreen = () => {
             Greenhouse Building, Adams Arcade, Ngong Road. West Wing, First Floor (Suite 1)
           </Text>
         </View>
-
       </ScrollView>
     </ScreenLayout>
   );
@@ -148,137 +160,40 @@ export default ConnectScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
-  pageHeader: {
-    paddingTop: 30,
-    paddingBottom: 16,
-    paddingHorizontal: 16,
-  },
-  pageTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#333',
-    marginBottom: 6,
-  },
-  pageSubtitle: {
-    fontSize: 14,
-    color: '#666',
-    fontWeight: '400',
-    lineHeight: 20,
-  },
-  card: {
-    margin: 16,
-    borderRadius: 10,
-    padding: 16,
-    backgroundColor: '#fff',
-    elevation: 2,
-  },
-  feedbackCard: {
-    backgroundColor: '#fffbe7',
-    borderColor: '#ffe7b3',
-    borderWidth: 1.5,
-  },
-  givingCard: {
-    backgroundColor: '#f3e7ff',
-    borderColor: '#d1b3ff',
-    borderWidth: 1.5,
-  },
-  mapCard: {
-    marginHorizontal: 16,
-    marginBottom: 20,
-    height: 220,
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  map: {
-    flex: 1,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#7F00FF',
-    marginBottom: 10,
-  },
-  subheading: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#7F00FF',
-    marginBottom: 6,
-  },
-  subtext: {
-    fontSize: 13,
-    color: '#666',
-    marginBottom: 12,
-  },
-  input: {
-    backgroundColor: '#fff',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
-  },
-  inputArea: {
-    backgroundColor: '#fff',
-    textAlignVertical: 'top',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    height: 100,
-    marginBottom: 12,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 16,
-    textAlign: 'center',
-    marginBottom: 14,
-    color: '#333',
-  },
-  socialIcons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-    paddingHorizontal: 16,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  methodButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  pageHeader: { paddingTop: 30, paddingBottom: 16, paddingHorizontal: 16 },
+  pageTitle: { fontSize: 24, fontWeight: '700', color: '#333', marginBottom: 6 },
+  pageSubtitle: { fontSize: 14, color: '#666', fontWeight: '400', lineHeight: 20 },
+  card: { margin: 16, borderRadius: 10, padding: 16, backgroundColor: '#fff', elevation: 2 },
+  feedbackCard: { backgroundColor: '#fffbe7', borderColor: '#ffe7b3', borderWidth: 1.5 },
+  givingCard: { backgroundColor: '#f3e7ff', borderColor: '#d1b3ff', borderWidth: 1.5 },
+  mapCard: { marginHorizontal: 16, marginBottom: 20, height: 220, borderRadius: 10, overflow: 'hidden' },
+  map: { width: '100%', height: '100%' },
+  openMapBtn: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: '#7F00FF',
     paddingVertical: 6,
     paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    backgroundColor: '#f2f2f2',
+    borderRadius: 6,
   },
-  activeMethod: {
-    borderColor: '#7F00FF',
-    backgroundColor: '#e8d6ff',
+  openMapText: {
+    color: '#fff',
+    fontWeight: '600',
   },
-  methodText: {
-    marginLeft: 6,
-    fontSize: 14,
-  },
-  rowInput: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  addressCard: {
-    marginHorizontal: 16,
-    marginBottom: 32,
-  },
-  label: {
-    fontSize: 14,
-    marginBottom: 6,
-  },
-  addressText: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 10,
-  },
+  heading: { fontSize: 20, fontWeight: '700', color: '#7F00FF', marginBottom: 10 },
+  subheading: { fontSize: 16, fontWeight: '600', color: '#7F00FF', marginBottom: 6 },
+  subtext: { fontSize: 13, color: '#666', marginBottom: 12 },
+  input: { backgroundColor: '#fff', borderColor: '#ccc', borderWidth: 1, borderRadius: 8, padding: 10, marginBottom: 12 },
+  inputArea: { backgroundColor: '#fff', textAlignVertical: 'top', borderColor: '#ccc', borderWidth: 1, borderRadius: 8, padding: 10, height: 100, marginBottom: 12 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', marginLeft: 16, textAlign: 'center', marginBottom: 14, color: '#333' },
+  socialIcons: { flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20, paddingHorizontal: 16 },
+  buttonRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
+  methodButton: { flexDirection: 'row', alignItems: 'center', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 8, borderWidth: 1, borderColor: '#ccc', backgroundColor: '#f2f2f2' },
+  activeMethod: { borderColor: '#7F00FF', backgroundColor: '#e8d6ff' },
+  methodText: { marginLeft: 6, fontSize: 14 },
+  rowInput: { flexDirection: 'row', gap: 8 },
+  addressCard: { marginHorizontal: 16, marginBottom: 32 },
+  label: { fontSize: 14, marginBottom: 6 },
+  addressText: { fontSize: 14, color: '#555', marginBottom: 10 },
 });

@@ -9,12 +9,22 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCfka5VdM"
+      }
     },
     "android": {
+      "package": "com.globe_technologies.nurumobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCfka5VdMozWPhK6QQWy"
+        }
       },
       "edgeToEdgeEnabled": true
     },
@@ -37,6 +47,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "914ecc54-bc4f-4942-af42-64f36e8a79de"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/914ecc54-bc4f-4942-af42-64f36e8a79de"
     }
   }
 }
