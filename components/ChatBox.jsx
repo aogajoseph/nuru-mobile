@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   StyleSheet,
+  Linking,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -53,6 +54,54 @@ const ChatBox = () => {
     }
   }, [messages]);
 
+  const renderFormattedMessage = (text) => {
+    const parts = text.split(
+      /(0701\s?777\s?888|\(?\+?254\)?\s?0725\s?650\s?737|https:\/\/nairobichapel\.net)/
+    );
+
+    return parts.map((part, index) => {
+      const clean = part.replace(/\s+/g, "");
+
+      if (part.match(/0701\s?777\s?888/)) {
+        return (
+          <Text
+            key={index}
+            style={{ color: "#25D366" }}
+            onPress={() => Linking.openURL("https://wa.me/254701777888")}
+          >
+            0701 777 888 (WhatsApp)
+          </Text>
+        );
+      }
+
+      if (part.match(/\(?\+?254\)?\s?0725\s?650\s?737/)) {
+        return (
+          <Text
+            key={index}
+            style={{ color: "#7F00FF" }}
+            onPress={() => Linking.openURL("tel:+254725650737")}
+          >
+            0725 650 737 (Call)
+          </Text>
+        );
+      }
+
+      if (part.includes("nairobichapel.net")) {
+        return (
+          <Text
+            key={index}
+            style={{ color: "#7F00FF" }}
+            onPress={() => Linking.openURL("https://nairobichapel.net")}
+          >
+            nairobichapel.net
+          </Text>
+        );
+      }
+
+      return <Text key={index}>{part}</Text>;
+    });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -76,7 +125,11 @@ const ChatBox = () => {
                 msg.sender === "user" ? styles.userBubble : styles.botBubble,
               ]}
             >
-              <Text style={styles.messageText}>{msg.text}</Text>
+              <Text style={styles.messageText}>
+                {msg.sender === "bot"
+                  ? renderFormattedMessage(msg.text)
+                  : msg.text}
+              </Text>
             </View>
           </View>
         ))}
@@ -133,6 +186,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#333",
     lineHeight: 20,
+    flexWrap: "wrap",
   },
   loadingContainer: {
     alignSelf: "flex-start",
