@@ -12,8 +12,10 @@ import {
   findNodeHandle,
   UIManager,
 } from 'react-native';
-import { Ionicons, FontAwesome, Feather, Entypo } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Feather';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import logo from '../assets/images/logo.png';
 
 const { width } = Dimensions.get('window');
@@ -46,7 +48,7 @@ export default function Header() {
       url: 'https://www.facebook.com/sharer/sharer.php?u=https://example.com',
     },
     {
-      icon: <Entypo name="twitter" size={28} color="#1DA1F2" />,
+      icon: <FontAwesome6 name="x-twitter" size={28} color="black" />,
       url: 'https://twitter.com/intent/tweet?text=Check%20out%20this%20app%20https://example.com',
     },
     {
@@ -99,8 +101,11 @@ export default function Header() {
           <View style={styles.dropdownCard}>
             <Text style={styles.dropdownTitle}>Nairobi Chapel</Text>
             <Text style={styles.dropdownSubtitle}>Ngong' Road</Text>
-            <TouchableOpacity onPress={() => alert('Admins only')}>
-              <Text style={styles.settingsLink}>Settings (Admins Only)</Text>
+            <TouchableOpacity onPress={() => alert('This feature is coming soon.')}>
+              <Text style={styles.settingsLink}>
+                <Icon name="settings" size={16} color="#7F00FF" /> Settings{' '}
+                <Text style={styles.adminLabel}>(Admins only)</Text>
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -115,7 +120,7 @@ export default function Header() {
       >
         <Pressable style={styles.modalOverlay} onPress={() => setShowShareModal(false)}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Share</Text>
+            <Text style={styles.modalTitle}>Share Via</Text>
             <View style={styles.iconRow}>
               {shareLinks.map((item, index) => (
                 <TouchableOpacity
@@ -205,7 +210,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#333',
-    marginBottom: 4,
+    marginBottom: 1,
   },
   dropdownSubtitle: {
     fontSize: 14,
@@ -216,6 +221,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7F00FF',
     fontWeight: '600',
+  },
+  adminLabel: {
+    fontSize: 12,
+    color: 'gray',
   },
   modalOverlay: {
     flex: 1,
