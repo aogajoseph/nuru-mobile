@@ -120,7 +120,7 @@ const ChatBox = () => {
             style={{ color: "#25D366" }}
             onPress={() => Linking.openURL("https://wa.me/254701777888")}
           >
-            0701 777 888 (WhatsApp)
+            0701 777 888
           </Text>
         );
       }
@@ -132,7 +132,7 @@ const ChatBox = () => {
             style={{ color: "#7F00FF" }}
             onPress={() => Linking.openURL("tel:+254725650737")}
           >
-            0725 650 737 (Call)
+            0725 650 737
           </Text>
         );
       }
