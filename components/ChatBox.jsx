@@ -11,11 +11,62 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+// === Fallback Default Greeting ===
+const fallbackIntro = `Hi, I’m Nuru—your digital companion here at Nairobi Chapel Ngong Road. Ask me anything—whether you're curious about ministries, giving, or your first Sunday!
+I’m here 24/7 to help you feel at home. 🌱`;
+
+// === Time-Aware Smart Greeting Detector ===
+const getTimeGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning!";
+  if (hour < 17) return "Good afternoon!";
+  return "Good evening!";
+};
+
+const detectGreetingResponse = (input) => {
+  const normalized = input.toLowerCase();
+  if (
+    normalized.includes("good morning") ||
+    normalized.includes("good afternoon") ||
+    normalized.includes("good evening")
+  ) {
+    const correct = getTimeGreeting();
+    return `Hey! Thanks for the warm greeting. It’s actually ${correct.toLowerCase()} here, but I’m really glad you dropped by. 😊 How can I help today?`;
+  }
+  return null;
+};
+
 const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollViewRef = useRef(null);
+
+  // === Fetch /config and inject random intro on mount ===
+  useEffect(() => {
+    const loadIntro = async () => {
+      try {
+        const res = await fetch("https://nuru-backend-os39.onrender.com/config");
+        const config = await res.json();
+        const intros = config?.intro_messages || [];
+        const randomIntro = intros.length
+          ? intros[Math.floor(Math.random() * intros.length)]
+          : fallbackIntro;
+
+        setMessages([{ sender: "bot", text: randomIntro }]);
+      } catch (err) {
+        console.error("Failed to load intro message from config:", err);
+        setMessages([{ sender: "bot", text: fallbackIntro }]);
+      }
+    };
+
+    loadIntro();
+  }, []);
+
+  // === Auto-scroll to latest message ===
+  useEffect(() => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -24,6 +75,14 @@ const ChatBox = () => {
     setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
     setInput("");
     setLoading(true);
+
+    // === Smart time-aware greeting (client-side) ===
+    const smart = detectGreetingResponse(userMessage);
+    if (smart) {
+      setMessages((prev) => [...prev, { sender: "bot", text: smart }]);
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("https://nuru-backend-os39.onrender.com/ask", {
@@ -48,20 +107,12 @@ const ChatBox = () => {
     }
   };
 
-  useEffect(() => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  }, [messages]);
-
   const renderFormattedMessage = (text) => {
     const parts = text.split(
-      /(0701\s?777\s?888|\(?\+?254\)?\s?0725\s?650\s?737|https:\/\/nairobichapel\.net)/
+      /(0701\s?777\s?888|\(?\+?254\)?\s?0725\s?650\s?737|https:\/\/nairobichapel\.net)/g
     );
 
     return parts.map((part, index) => {
-      const clean = part.replace(/\s+/g, "");
-
       if (part.match(/0701\s?777\s?888/)) {
         return (
           <Text
@@ -220,7 +271,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  sendButtonDisabled: { backgroundColor: "#ccc" },
+  sendButtonDisabled: {
+    backgroundColor: "#ccc",
+  },
 });
 
 export default ChatBox;

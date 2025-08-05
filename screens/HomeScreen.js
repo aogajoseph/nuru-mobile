@@ -21,9 +21,9 @@ export default function HomeScreen() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScreenLayout>
           <View style={styles.header}>
-            <Text style={styles.title}>Hello, I'm Nuru.</Text>
+            <Text style={styles.title}>Ask Nuru.</Text>
             <Text style={styles.subtitle}>
-              Ask me anything about Nairobi Chapel Ngong' Road.
+              Your digital assistant at Nairobi Chapel Ngong Road
             </Text>
           </View>
           <View style={styles.chatContainer}>
