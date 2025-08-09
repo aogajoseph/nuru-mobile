@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import ScreenLayout from '../components/ScreenLayout';
+import ScreenLayout from '../../components/ScreenLayout';
 
 const screenWidth = Dimensions.get('window').width;
 

@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import { FontAwesome, MaterialIcons, Entypo, Feather } from '@expo/vector-icons';
-import ScreenLayout from '../components/ScreenLayout';
+import ScreenLayout from '../../components/ScreenLayout';
 
 const ConnectScreen = () => {
   const [feedback, setFeedback] = useState('');
@@ -133,7 +133,7 @@ const ConnectScreen = () => {
         </View>
 
         <View style={styles.mapCard}>
-          <Image source={require('../assets/images/location.png')} style={styles.map} resizeMode="cover" />
+          <Image source={require('../../assets/images/location.png')} style={styles.map} resizeMode="cover" />
           <TouchableOpacity
             onPress={() => Linking.openURL('https://maps.app.goo.gl/sKFTCNgBzYaoujqN6/')}
             style={styles.openMapBtn}

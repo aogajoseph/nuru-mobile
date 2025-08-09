@@ -1,8 +1,8 @@
 // File: screens/SermonsScreen.js
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import SermonsCard from '../components/SermonsCard';
-import ScreenLayout from '../components/ScreenLayout';
+import SermonsCard from '../../components/SermonsCard';
+import ScreenLayout from '../../components/ScreenLayout';
 
 const sermons = [
   {

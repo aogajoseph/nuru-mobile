@@ -6,8 +6,8 @@ import {
   StyleSheet,
   Linking,
 } from 'react-native';
-import NoticesCard from '../components/NoticesCard';
-import ScreenLayout from '../components/ScreenLayout';
+import NoticesCard from '../../components/NoticesCard';
+import ScreenLayout from '../../components/ScreenLayout';
 
 const notices = [
   {

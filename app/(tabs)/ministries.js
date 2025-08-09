@@ -10,7 +10,7 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import ScreenLayout from '../components/ScreenLayout';
+import ScreenLayout from '../../components/ScreenLayout';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -35,14 +35,14 @@ const frontlineMinistries = [
   {
     title: "Safe Families",
     subheader: "Foster Care",
-    image: require('../assets/images/safe-families.png'),
+    image: require('../../assets/images/safe-families.png'),
     description: "Extends love and support to vulnerable families and children.",
     details: "Safe Families places children in temporary homes while helping parents overcome crises such as illness or job loss. It revives the African communal care spirit.",
   },
   {
     title: "Tumaini Clinics",
     subheader: "Health & Wellness",
-    image: require('../assets/images/tumaini-clinics.png'),
+    image: require('../../assets/images/tumaini-clinics.png'),
     description: "Affordable, quality medical services in Kibra and Korogocho.",
     details: "With over 3,500 patients monthly, Tumaini Clinics offer maternity and general care at a fraction of market cost, making healthcare accessible to the underserved.",
   },
@@ -80,14 +80,14 @@ const otherMinistries = [
   {
     title: "Jabari",
     subheader: "Men's Ministry",
-    image: require('../assets/images/jabari.png'),
+    image: require('../../assets/images/jabari.png'),
     description: "Empowering men to be bold disciples of Jesus.",
     details: "Jabari connects men to God and each other to live out their faith at home, church, and society with strength and purpose.",
   },
   {
     title: "Binti",
     subheader: "Women's Ministry",
-    image: require('../assets/images/binti.png'),
+    image: require('../../assets/images/binti.png'),
     description: "Encouraging women to embrace identity and faith.",
     details: "Binti fosters prayer, community, and strength among women from all walks of life, equipping them to respond to life with grace and spiritual depth.",
   },

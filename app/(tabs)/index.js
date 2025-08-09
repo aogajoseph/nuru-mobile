@@ -8,8 +8,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import ChatBox from '../components/ChatBox';
-import ScreenLayout from '../components/ScreenLayout';
+import ChatBox from '../../components/ChatBox';
+import ScreenLayout from '../../components/ScreenLayout';
 
 export default function HomeScreen() {
   return (
